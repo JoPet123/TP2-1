@@ -75,7 +75,7 @@ void Personnage::AjustementsVisuels()
 		int largeur = textureMove.getSize().x / NBR_ANIMS_MOUVEMENT;
 		int hauteur = textureMove.getSize().y / NBR_NIVEAUX;
 
-		for (int j = 0; j < NBR_ANIMS_IMMOBILE; j++)
+		for (int j = 0; j < NBR_ANIMS_MOUVEMENT; j++)
 		{
 			intRectsMouvement[i][j].left = largeur * j;
 			intRectsMouvement[i][j].top = hauteur * i;

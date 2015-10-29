@@ -1,8 +1,8 @@
 #pragma once
 
-#include <vld.h>
-#include <SFML\Graphics.hpp>
-#include <iostream>
+//#include <vld.h>
+//#include <SFML\Graphics.hpp>
+//#include <iostream>
 #include "Orientation.h"
 
 namespace niveau
