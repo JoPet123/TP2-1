@@ -1,0 +1,20 @@
+﻿La génération a démarré 2015-10-29 1:39:25 PM.
+     1>Projet "C:\Users\Thomas\Desktop\TP2\TP2\TP2.vcxproj" sur le nœud 2 (Build cible(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source.cpp
+         Source.cpp
+     1>c:\users\thomas\desktop\tp2\tp2\source.cpp(71): warning C4244: 'argument' : conversion de 'const int' en 'const float', perte possible de données
+     1>c:\users\thomas\desktop\tp2\tp2\source.cpp(81): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+     1>c:\users\thomas\desktop\tp2\tp2\source.cpp(82): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+     1>c:\users\thomas\desktop\tp2\tp2\source.cpp(87): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+     1>c:\users\thomas\desktop\tp2\tp2\source.cpp(88): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Thomas\Desktop\TP2\Debug\TP2.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win32" "sfml-system-d.lib" "sfml-main-d.lib" "sfml-graphics-d.lib" "sfml-audio-d.lib" "sfml-network-d.lib" "sfml-window-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Thomas\Desktop\TP2\Debug\TP2.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Thomas\Desktop\TP2\Debug\TP2.lib" /MACHINE:X86 Debug\Mur.obj
+         Debug\Personnage.obj
+         Debug\Source.obj
+         TP2.vcxproj -> C:\Users\Thomas\Desktop\TP2\Debug\TP2.exe
+     1>Génération du projet "C:\Users\Thomas\Desktop\TP2\TP2\TP2.vcxproj" terminée (Build cible(s)).
+
+La génération a réussi.
+
+Temps écoulé 00:00:00.81
