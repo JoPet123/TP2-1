@@ -1,4 +1,5 @@
 //#include <vld.h>
+#define _USE_MATH_DEFINES
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Personnage.h"
@@ -12,6 +13,10 @@ const int HEIGHT = 720;
 
 const int VITESSE = 10;
 
+const float ZONE_TANGEANTE1 = tanf(M_PI / 8);
+const float DIAGONALE = cos(M_PI_4);
+const float ZONE_TANGEANTE2 = tanf((M_PI * 3) / 8);
+
 const int NB_FRAME_IMMOBILE = 16;
 const int NB_FRAME_MOUV = 8;
 const int NB_FRAME_ATTAQUE = 18;
@@ -21,9 +26,11 @@ RenderWindow mainWin(VideoMode(WIDHT, HEIGHT, 32), "Fury");
 View view(mainWin.getDefaultView());
 Event event;
 
-Sprite background;
-Texture Tbackground;
-Vector2f backgroundPos[18];
+Sprite background1;
+Texture Tbackground1;
+
+Sprite background2;
+Texture Tbackground2;
 
 Personnage * Personnage1;
 Vector2f interfaceDeplacement;
@@ -32,6 +39,8 @@ bool Init();
 void GetInputs();
 void Update();
 void Draw();
+
+void KeyboardMouvement();
 
 int main()
 {
@@ -56,37 +65,35 @@ bool Init()
 {
 	mainWin.setFramerateLimit(60);
 
-	if (!Tbackground.loadFromFile("Sprites\\tile1.png"))
+	if (!Tbackground1.loadFromFile("Sprites\\tile1.png"))
 	{
 		return false;
 	}
+
+	//if (!Tbackground2.loadFromFile("Sprites\\tile2.png"))
+	//{
+	//	return false;
+	//}
 
 	if (!Personnage::ChargerTextures("Sprites\\PersoIddle.png", "Sprites\\PersoCourse.png", "Sprites\\attaque.png"))
 	{
 		return false;
 	}
 
-	background.setTexture(Tbackground);
+	Tbackground1.setRepeated(true);
+	//Tbackground2.setRepeated(true);
+
+	background1.setTexture(Tbackground1);
+	background1.setTextureRect(IntRect(0, 0, 1280, 720));
+	//background2.setTexture(Tbackground2);
+	//background2.setTextureRect(IntRect(640, 360, 1280, 720));
+
 
 	Personnage1 = new Personnage(WIDHT / 2, 100.0f, VITESSE, 6, NB_NIVEAUX, NB_FRAME_IMMOBILE, NB_FRAME_MOUV, NB_FRAME_ATTAQUE, &mainWin);
 	Personnage1->AjustementsVisuels();
 
 	interfaceDeplacement.x = 0;
 	interfaceDeplacement.y = 0;
-
-	//TUILES DE FOND
-
-	for (int i = 0; i < 6; i++)
-	{
-		backgroundPos[i].x = (i % 2) * 512;
-		backgroundPos[i].y = (i / 2) * 256;
-	}
-
-	for (int i = 0; i < 12; i++)
-	{
-		backgroundPos[i + 6].x = ((i % 3) * 512) - 256;
-		backgroundPos[i + 6].y = ((i / 3) * 256) - 128;
-	}
 
 	return true;
 }
@@ -100,22 +107,90 @@ void GetInputs()
 			mainWin.close();
 		}
 	}
+
+	KeyboardMouvement();
 }
 
 void Update()
 {
-
+	Personnage1->Deplacement(interfaceDeplacement.x, interfaceDeplacement.y);
 }
 
 void Draw()
 {
 	mainWin.clear();
 
-	for (int i = 0; i < 18; i++)
-	{
-		background.setPosition(backgroundPos[i]);
-		mainWin.draw(background);
-	}
+	mainWin.draw(background1);
+	//mainWin.draw(background2);
+
+	mainWin.draw(*Personnage1);
 
 	mainWin.display();
+}
+
+void KeyboardMouvement()
+{
+	if (Keyboard::isKeyPressed(Keyboard::Left))
+	{
+		if (Keyboard::isKeyPressed(Keyboard::Up))
+		{
+			interfaceDeplacement.x = -DIAGONALE;
+			interfaceDeplacement.y = -DIAGONALE;
+			Personnage1->AjustementsDuCadran(NO);
+		}
+		else if (Keyboard::isKeyPressed(Keyboard::Down))
+		{
+			interfaceDeplacement.x = -DIAGONALE;
+			interfaceDeplacement.y = DIAGONALE;
+			Personnage1->AjustementsDuCadran(SO);
+		}
+		else
+		{
+			interfaceDeplacement.x = -1;
+			interfaceDeplacement.y = 0;
+			Personnage1->AjustementsDuCadran(O);
+		}
+	}
+	else if (Keyboard::isKeyPressed(Keyboard::Right))
+	{
+		if (Keyboard::isKeyPressed(Keyboard::Up))
+		{
+			interfaceDeplacement.x = DIAGONALE;
+			interfaceDeplacement.y = -DIAGONALE;
+			Personnage1->AjustementsDuCadran(NE);
+		}
+		else if (Keyboard::isKeyPressed(Keyboard::Down))
+		{
+			interfaceDeplacement.x = DIAGONALE;
+			interfaceDeplacement.y = DIAGONALE;
+			Personnage1->AjustementsDuCadran(SE);
+		}
+		else
+		{
+			interfaceDeplacement.x = 1;
+			interfaceDeplacement.y = 0;
+			Personnage1->AjustementsDuCadran(E);
+		}
+	}
+	else
+	{
+		if (Keyboard::isKeyPressed(Keyboard::Up))
+		{
+			interfaceDeplacement.x = 0;
+			interfaceDeplacement.y = -1;
+			Personnage1->AjustementsDuCadran(N);
+		}
+		else if (Keyboard::isKeyPressed(Keyboard::Down))
+		{
+			interfaceDeplacement.x = 0;
+			interfaceDeplacement.y = 1;
+			Personnage1->AjustementsDuCadran(S);
+		}
+		else
+		{
+			interfaceDeplacement.x = 0;
+			interfaceDeplacement.y = 0;
+			Personnage1->AjustementsDuCadran(IMMOBILE);
+		}
+	}
 }

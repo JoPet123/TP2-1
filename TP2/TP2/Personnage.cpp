@@ -48,6 +48,8 @@ bool Personnage::ChargerTextures(const char texturePathIddle[], const char textu
 
 void Personnage::AjustementsVisuels()
 {
+	setTexture(textureIddle);
+
 	intRectsImmobile = new IntRect*[NBR_NIVEAUX];
 	intRectsMouvement = new IntRect*[NBR_NIVEAUX];
 	intRectsAttaque = new IntRect*[NBR_NIVEAUX];
@@ -132,6 +134,7 @@ void Personnage::Deplacement(float axeX, float axeY)
 
 	if (estMobile)
 	{
+		setTexture(textureMove);
 		if (animateur++ % SPEED_ANIMATION == 0)
 		{
 			setTextureRect(intRectsMouvement[cadran][(animateur / SPEED_ANIMATION) % NBR_ANIMS_MOUVEMENT]);
@@ -139,6 +142,7 @@ void Personnage::Deplacement(float axeX, float axeY)
 	}
 	else
 	{
+		setTexture(textureIddle);
 		if (animateur++ % SPEED_ANIMATION == 0)
 		{
 			setTextureRect(intRectsImmobile[cadran][animateurImmobile]);
