@@ -142,9 +142,9 @@ void Personnage::Deplacement(float axeX, float axeY)
 	}
 	else
 	{
-		setTexture(textureIddle);
 		if (animateur++ % SPEED_ANIMATION == 0)
 		{
+			setTexture(textureIddle);
 			setTextureRect(intRectsImmobile[cadran][animateurImmobile]);
 			animateurImmobile += directionImmobile;
 
